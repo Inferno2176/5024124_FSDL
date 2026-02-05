@@ -1,87 +1,361 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Webpage</title>
+    <title>StreetWear | Premium</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=person" />
-    
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <style>
-        body{
+        :root {
+            --primary: #000000;
+            --accent: #FF3366;
+            --bg: #F5F5F7;
+            --card-bg: #FFFFFF;
+            --text-main: #1D1D1F;
+            --text-light: #86868B;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
             font-family: "Raleway", sans-serif;
-            font-optical-sizing: auto;
-            font-weight: 20;
-            font-style: normal;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
         }
-        .container{
-            width: 100%;
+
+        .nav {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
-        .webcard{
-            width: 100%;
-            height: 25%;
-            padding: 4%;
-            text-align: center;
+
+        .nav-brand {
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            color: var(--primary);
+            text-transform: uppercase;
         }
-        .nav{
-            width: 100%;
-            overflow: auto;
-            background-color: #000000;
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
         }
-        .nav a{
-            float: left;
-            text-align: center;
-            color: #ffffff;
-            padding: 10px;
+
+        .nav a {
             text-decoration: none;
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            position: relative;
         }
-        .nav a:hover{
-            background-color: #ff80b3;
-            color: #000000;
-            font-weight: 50;
+
+        .nav a:hover {
+            color: var(--accent);
         }
-        .nav input[type="search"]{
-            
-            align-content: right;
-            padding: 10px;
-            border-radius: 12px;
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
+
+        .searchbar {
+            padding: 0.6rem 1rem;
+            border-radius: 50px;
+            border: 1px solid #E5E5E5;
+            background: #FAFAFA;
+            outline: none;
+            font-family: inherit;
+            transition: var(--transition);
+            width: 150px;
+        }
+
+        .searchbar:focus {
+            width: 220px;
+            border-color: var(--accent);
+            background: #fff;
+        }
+
         .material-symbols-outlined {
-            float: right;
-            font-variation-settings:
-            'FILL' 0,
-            'wght' 400,
-            'GRAD' 0,
-            'opsz' 24
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .material-symbols-outlined:hover {
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .header {
+            text-align: center;
+            padding: 4rem 1rem;
+            background: var(--primary);
+            color: white;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: 5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-weight: 300;
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 60%);
+            animation: rotate 20s linear infinite;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: block;
+        }
+
+        .cards-section h2 {
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .card-visual {
+            height: 250px;
+            width: 100%;
+            position: relative;
+        }
+
+        .visual-1 {
+            background: linear-gradient(45deg, #FF9A9E 0%, #FECFEF 99%, #FECFEF 100%);
+        }
+
+        .visual-2 {
+            background: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+        }
+
+        .visual-3 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .visual-4 {
+            background: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+        }
+
+        .card-chip {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-desc {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-card {
+            display: inline-block;
+            padding: 8px 16px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .btn-card:hover {
+            background: var(--accent);
+        }
+
+        .footer {
+            margin-top: 5rem;
+            background: var(--primary);
+            color: rgba(255, 255, 255, 0.6);
+            padding: 3rem 5%;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 900px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+                /* Stack on mobile */
+            }
+
+            .nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
         }
     </style>
 </head>
+
 <body>
-    <div class="container">
-        <div class="webcard">
-            <h1>WEBSITE CARD</h1>
-        </div>
-        <div class="nav">
+    <div class="nav">
+        <div class="nav-brand">WEBCARD</div>
+        <div class="nav-links">
             <a href="#">HOME</a>
             <a href="#">MEN</a>
             <a href="#">WOMEN</a>
             <a href="#">SNEAKERS</a>
             <a href="#">CONTACT</a>
-            <a href="#">ABOUT</a>
-            <input type="search" name="search1" class="searchbar" placeholder="SEARCH">
+        </div>
+        <div class="nav-actions">
+            <input type="search" class="searchbar" placeholder="Search...">
             <span class="material-symbols-outlined">person</span>
-        </div>
-        <div class="login">
-            <div class="loginbox">
-
-            </div>
-        </div>
-        <div class="footer">
-
+            <span class="material-symbols-outlined">shopping_bag</span>
         </div>
     </div>
+    <header class="header">
+        <h1>NEW ARRIVALS</h1>
+        <p>DISCOVER THE LATEST TRENDS IN STREETWEAR</p>
+    </header>
+    <div class="container">
+        <div class="cards-section">
+            <h2>Trending Now</h2>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-visual visual-1">
+                        <span class="card-chip">New</span>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Summer Collection</h3>
+                        <p class="card-desc">Vibrant colors and lightweight sustainability for the season.</p>
+                        <a href="#" class="btn-card">Shop Collection</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-visual visual-2">
+                        <span class="card-chip">Sale</span>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Urban Runners</h3>
+                        <p class="card-desc">Performance meets style in our latest footwear drop.</p>
+                        <a href="#" class="btn-card">View Sneakers</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-visual visual-3">
+                        <span class="card-chip">Hot</span>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Essentials</h3>
+                        <p class="card-desc">Minimalist designs for everyday comfort and style.</p>
+                        <a href="#" class="btn-card">Explore</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-visual visual-4">
+                        <span class="card-chip">Limited</span>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Monochrome</h3>
+                        <p class="card-desc">The classic black and white collection.</p>
+                        <a href="#" class="btn-card">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#">About Us</a>
+            <a href="#">Careers</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+        </div>
+        <p>&copy; 2026 WebCard Inc. All rights reserved.</p>
+    </footer>
 </body>
+
 </html>
