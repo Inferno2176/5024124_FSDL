@@ -24,7 +24,31 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     profile.onclick = function () {
-        showToast("Please log in")
+        document.getElementById("loginModal").style.display = "flex"
+    }
+
+    document.addEventListener("click", function (e) {
+        let modal = document.getElementById("loginModal")
+        if (e.target === modal) {
+            modal.style.display = "none"
+        }
+        if (e.target.classList.contains("modal-close")) {
+            modal.style.display = "none"
+        }
+    })
+
+    let loginForm = document.getElementById("loginForm")
+    if (loginForm) {
+        loginForm.onsubmit = function (e) {
+            e.preventDefault()
+            let email = document.getElementById("email").value
+            let password = document.getElementById("password").value
+            if (email && password) {
+                showToast("Welcome back!")
+                document.getElementById("loginModal").style.display = "none"
+                loginForm.reset()
+            }
+        }
     }
 
     search.addEventListener("keyup", function () {
