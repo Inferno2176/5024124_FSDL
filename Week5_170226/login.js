@@ -16,6 +16,9 @@ function validateEmail(email) {
     if (!email) {
         throw new ValidationError("Email is required")
     }
+    if (!email.includes('@')) {
+        throw new ValidationError("Email must contain '@'")
+    }
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailRegex.test(email)) {
         throw new ValidationError("Invalid email format")
@@ -26,8 +29,20 @@ function validatePassword(password) {
     if (!password) {
         throw new ValidationError("Password is required")
     }
-    if (password.length < 6) {
-        throw new ValidationError("Password must be at least 6 characters")
+    if (password.length < 8) {
+        throw new ValidationError("Password must be at least 8 characters")
+    }
+    if (!/\d/.test(password)) {
+        throw new ValidationError("Password must contain at least one integer")
+    }
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+        throw new ValidationError("Password must contain at least one special character")
+    }
+    if (!/[A-Z]/.test(password)) {
+        throw new ValidationError("Password must contain at least one uppercase letter")
+    }
+    if (!/[a-z]/.test(password)) {
+        throw new ValidationError("Password must contain at least one lowercase letter")
     }
 }
 
@@ -52,7 +67,7 @@ function showMessage(message, type) {
 }
 
 function handleLogin(email, password) {
-    if (email === "user@example.com" && password === "password123") {
+    if (email === "user@example.com" && password === "Password123!") {
         return true
     }
     throw new LoginError("Invalid email or password")
