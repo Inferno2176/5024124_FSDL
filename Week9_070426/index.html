@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <title>Hello World with AngularJS</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body>
+    <div class="container" ng-controller="HelloController">
+        <h1>AngularJS Hello World Project</h1>
+        
+        <label for="nameInput">Enter your name:</label>
+        <input id="nameInput" type="text" ng-model="name" placeholder="Type your name here">
+        
+        <p class="greeting">Hello {{name || 'World'}}!</p>
+        <p ng-if="name" class="greeting">Your name is {{name}} and it has {{name.length}} characters.</p>
+        <p ng-if="!name" class="greeting">Please enter a name to see more details.</p>
+        
+        <h2>Simple Calculator</h2>
+        <label for="num1">First number:</label>
+        <input id="num1" type="number" ng-model="num1" placeholder="First number">
+        <label for="num2">Second number:</label>
+        <input id="num2" type="number" ng-model="num2" placeholder="Second number">
+        <p class="calculator-result">Sum: {{ (num1 || 0) + (num2 || 0) }}</p>
+        <p class="calculator-result">Product: {{ (num1 || 0) * (num2 || 0) }}</p>
+    </div>
+
+    <script>
+        angular.module('myApp', [])
+            .controller('HelloController', function($scope) {
+                // Controller logic can be added here if needed
+            });
+    </script>
+</body>
+</html>
