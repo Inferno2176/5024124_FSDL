@@ -4,18 +4,22 @@
 
 body {
   margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-family: Inter, system-ui, sans-serif;
   background: radial-gradient(circle at top, #eef2ff, #c7d2fe);
   color: #1f2937;
 }
 
 #root {
-  min-height: 100vh;
+  width: 100%;
 }
 
 .app-shell {
   width: min(100%, 760px);
-  margin: 24px auto;
+  margin: 0 auto;
   padding: 18px;
 }
 
