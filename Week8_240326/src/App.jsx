@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
 import Home from './Home';
 import About from './About';
 
@@ -12,12 +12,12 @@ function App() {
             <p>Routers, refs, keys, and hooks in a small app.</p>
           </div>
           <nav>
-            <Link to="/" className="nav-link">
+            <NavLink to="/" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
               Home
-            </Link>
-            <Link to="/about" className="nav-link">
+            </NavLink>
+            <NavLink to="/about" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
               Summary
-            </Link>
+            </NavLink>
           </nav>
         </header>
 
