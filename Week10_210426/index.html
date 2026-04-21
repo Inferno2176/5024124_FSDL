@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html ng-app="studentApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Record Management - AngularJS</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body ng-controller="StudentController">
+    <div class="container">
+        <h1>Student Record Management System</h1>
+        <div class="main-flex-row">
+        <!-- Form Section -->
+        <div class="form-section">
+            <h2>Add Student Record</h2>
+            <form name="studentForm" ng-submit="addStudent()" novalidate>
+                <div class="form-group">
+                    <label for="name">Student Name:</label>
+                    <input type="text" id="name" name="name" ng-model="newStudent.name" required placeholder="Enter student name">
+                    <span class="error" ng-show="studentForm.name.$dirty && studentForm.name.$error.required">
+                        Name is required.
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" ng-model="newStudent.email" required placeholder="Enter email">
+                    <span class="error" ng-show="studentForm.email.$dirty && studentForm.email.$error.required">Email is required.</span>
+                    <span class="error" ng-show="studentForm.email.$dirty && studentForm.email.$error.email">
+                        Please enter a valid email.
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone" ng-model="newStudent.phone" required pattern="[0-9]{10}" placeholder="Enter 10-digit phone number">
+                    <span class="error" ng-show="studentForm.phone.$dirty && studentForm.phone.$error.required">
+                        Phone number is required.
+                    </span>
+                    <span class="error" ng-show="studentForm.phone.$dirty && studentForm.phone.$error.pattern">
+                        Please enter a valid 10-digit phone number.
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="rollno">Roll Number:</label>
+                    <input type="number" id="rollno" name="rollno" ng-model="newStudent.rollNo" required min="1" placeholder="Enter roll number">
+                    <span class="error" ng-show="studentForm.rollno.$dirty && studentForm.rollno.$error.required">
+                        Roll number is required.
+                    </span>
+                    <span class="error" ng-show="studentForm.rollno.$dirty && studentForm.rollno.$error.number">
+                        Roll number must be a number.
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="marks">Marks (0-100):</label>
+                    <input type="number" id="marks" name="marks" ng-model="newStudent.marks" required min="0" max="100" placeholder="Enter marks">
+                    <span class="error" ng-show="studentForm.marks.$dirty && studentForm.marks.$error.required">
+                        Marks is required.
+                    </span>
+                    <span class="error" ng-show="studentForm.marks.$dirty && (studentForm.marks.$error.min || studentForm.marks.$error.max)">
+                        Marks must be between 0 and 100.
+                    </span>
+                </div>
+                <button type="submit" ng-disabled="!studentForm.$valid" class="btn btn-submit">Add Student</button>
+                <p class="info" ng-show="!studentForm.$valid && studentForm.$dirty">
+                    Please fill all fields correctly to submit.
+                </p>
+            </form>
+        </div>
+        <!-- Student Records Section -->
+        <div class="records-section">
+            <h2>Student Records (Total: {{students.length}})</h2>
+            <div class="no-records" ng-show="students.length === 0">
+                <p>No student records found. Add a new student to get started!</p>
+            </div>
+            <table class="student-table" ng-show="students.length > 0">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Roll No</th>
+                        <th>Marks</th>
+                        <th>Grade</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="student in students" ng-click="selectStudent(student)" ng-class="{selected: selectedStudent.id === student.id}">
+                        <td>{{student.name}}</td>
+                        <td>{{student.email}}</td>
+                        <td>{{student.phone}}</td>
+                        <td>{{student.rollNo}}</td>
+                        <td>{{student.marks}}</td>
+                        <td class="grade">{{getGrade(student.marks)}}</td>
+                        <td>
+                            <button class="btn btn-delete" ng-click="deleteStudent($index); $event.stopPropagation()">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- Selected Student Details Section -->
+        <div class="details-section" ng-show="selectedStudent.id">
+            <h2>Selected Student Details</h2>
+            <div class="student-details">
+                <p><strong>Name:</strong> {{selectedStudent.name}}</p>
+                <p><strong>Email:</strong> {{selectedStudent.email}}</p>
+                <p><strong>Phone:</strong> {{selectedStudent.phone}}</p>
+                <p><strong>Roll Number:</strong> {{selectedStudent.rollNo}}</p>
+                <p><strong>Marks:</strong> {{selectedStudent.marks}}/100</p>
+                <p><strong>Grade:</strong> <span class="grade">{{getGrade(selectedStudent.marks)}}</span></p>
+            </div>
+        </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
